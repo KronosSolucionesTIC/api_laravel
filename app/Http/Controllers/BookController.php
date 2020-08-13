@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BookController extends Controller
 {
@@ -37,9 +38,19 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //Crear un nuevo libro
-        $book = Book::create($request->all());
-        return $book;
+        $validator = Validator::make($request->all(), [
+            'publish_date' => 'required',
+            'title' => 'required',
+            'author_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return 'Verifique los campos: Deben ser publish_date("YYYY-MM-dd"), title(Texto), author_id(Integer) ';
+        } else {
+            //Crear un nuevo libro
+            $book = Book::create($request->all());
+            return $book;
+        }
     }
 
     /**

@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource("Author","AuthorController");
 Route::apiResource("Book","BookController");
+Route::apiResource("Listado","ListadoController");

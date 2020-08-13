@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Author;
+use App\Listado;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
-class AuthorController extends Controller
+class ListadoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,12 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //Consulta todos los autores
-        $author = Author::all();
-        return $author;
+        //Consulta todos los libros con autores
+        $libros = DB::table('Books')
+            ->join('Authors', 'Authors.author_id', '=', 'Books.author_id')
+            ->select('Books.publish_date','Books.title','Authors.name')
+            ->get();
+        return $libros;
     }
 
     /**
@@ -38,27 +41,16 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'author_id' => 'required',
-            'name' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return 'Verifique los campos: Deben ser author_id(Integer), y name(Texto)';
-        } else {
-            //Crear un nuevo Author
-            $author = Author::create($request->all());
-            return $author;  
-        }
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Author  $author
+     * @param  \App\Listado  $listado
      * @return \Illuminate\Http\Response
      */
-    public function show(Author $author)
+    public function show(Listado $listado)
     {
         //
     }
@@ -66,10 +58,10 @@ class AuthorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Author  $author
+     * @param  \App\Listado  $listado
      * @return \Illuminate\Http\Response
      */
-    public function edit(Author $author)
+    public function edit(Listado $listado)
     {
         //
     }
@@ -78,10 +70,10 @@ class AuthorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Author  $author
+     * @param  \App\Listado  $listado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, Listado $listado)
     {
         //
     }
@@ -89,10 +81,10 @@ class AuthorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Author  $author
+     * @param  \App\Listado  $listado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Author $author)
+    public function destroy(Listado $listado)
     {
         //
     }
