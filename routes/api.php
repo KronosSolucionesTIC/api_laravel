@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource("Author","AuthorController");
+Route::apiResource("Book","BookController");

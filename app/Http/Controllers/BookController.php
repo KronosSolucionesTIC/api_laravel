@@ -14,7 +14,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        //Consulta todos los libros
+        $book = Book::all();
+        return $book;
     }
 
     /**
@@ -35,7 +37,9 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Crear un nuevo libro
+        $book = Book::create($request->all());
+        return $book;
     }
 
     /**
